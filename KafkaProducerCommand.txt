@@ -1,0 +1,16 @@
+
+1. Produce message without keys:
+		-	data will be distributed accross all partitions
+
+	kafka-console-producer.sh --bootstrap-server localhost:9092 --topic first_topic
+	
+	kafka-console-producer.sh --bootstrap-server localhost:9092 --topic first_topic --producer-property acks=all
+	
+	kafka-console-producer.sh --bootstrap-server localhost:9092 --topic non_exiting_topic
+	
+2. Produce message with keys:
+		-	data will be sent to a specific partitions
+		
+	kafka-console-producer.sh --bootstrap-server localhost:9092 --topic first_topic --property parse.key=true --property key.separator=:
+	
+	

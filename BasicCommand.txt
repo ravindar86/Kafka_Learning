@@ -1,0 +1,49 @@
+Basic Kafka Commands in WSL:
+
+Command to check version:
+
+kafka-topics.sh --version
+3.3.1 (Commit:e23c59d00e687ff5)
+
+Command to run Zookeeper:
+
+~/kafka_2.13-3.3.1/bin/zookeeper-server-start.sh ~/kafka_2.13-3.3.1/config/zookeeper.properties
+
+Command to start Kafka:
+
+~/kafka_2.13-3.3.1/bin/kafka-server-start.sh ~/kafka_2.13-3.3.1/config/server.properties
+
+To change zookeeper props:
+
+nano kafka_2.13-3.3.1/config/zookeeper.properties
+
+To change kafka props:
+
+nano kafka_2.13-3.3.1/config/server.properties
+
+
+To start kafka in localhost:
+
+kafka-topics.sh --bootstrap-server localhost:9092 --list
+
+When we get error like below,
+
+[2022-11-18 12:14:58,229] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.09.0.1:902) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2022-11-18 12:14:58,342] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2022-11-18 12:14:58,445] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2022-11-18 12:14:58,750] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2022-11-18 12:14:59,156] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2022-11-18 12:15:00,065] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+
+Then execute below commands,
+
+sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+
+sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+
+nano kafka_2.13-3.3.1/config/server.properties add localhost
+	Ø Edit listeners=PLAINTEXT://localhost:9092
+	
+Now if we try  executing below command it will work
+
+kafka-topics.sh --bootstrap-server localhost:9092 --list
