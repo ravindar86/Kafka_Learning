@@ -1,0 +1,11 @@
+1. Consume messages from the tail ie only when the producer produces then consumer will consume the messages
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first_topic
+
+2. Consume messages from the beginning of the messages being produced
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first_topic --from-beginning
+
+3. Consume messags with key, values and timestamp.
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first_topic --formatter kafka.tools.DefaultMessageFormatter --property print.timestamp=true --property print.key=true --property print.value=true --from-beginning
